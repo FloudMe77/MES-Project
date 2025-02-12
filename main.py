@@ -5,8 +5,7 @@ import matplotlib.pyplot as plt
 
 
 def E(x):
-    # return 2 if x <= 1 else 6
-    return 2 if x <= 1 else 21-10*x
+    return 2 if x <= 1 else 6
 
 
 def e(i, h, x):
@@ -30,7 +29,6 @@ def B(i, j, h, n):
     if abs(i-j) > 1:
         return 0
 
-    # i odpowiada 
     start = 2 * max(max(i, j) - 1, 0) / n
     end = 2 * min(min(i, j) + 1, n) / n
     return 4 * e(i,h,0) * e(j,h,0) - gauss_quadrature(lambda x: E(x) * e_prim(j,h,x) * e_prim(i,h,x), start, end)
@@ -38,7 +36,7 @@ def B(i, j, h, n):
 def L(j,h, n):
     start = 2 * max(j - 1, 0) / n
     end = 2 * min(j + 1, n) / n
-    return -20 * e(j,h,0) + gauss_quadrature(lambda x: 1000 * np.sin(np.pi * x) * e(j,h,x), start ,end)
+    return 8 * e(j,h,0) + gauss_quadrature(lambda x: 1000 * np.sin(np.pi * x) * e(j,h,x), start ,end)
 
 def gauss_quadrature(func, a, b, n = 50):
     # Pobieramy węzły i wagi dla kwadratury Gaussa
@@ -105,8 +103,8 @@ def solve(n):
     sol = gauss_elimination(B, L)
     # dodanie 3, bo znaleźliśmy w, a szukamy u
     for i in range(len(sol)):
-        sol[i] += 10
-    sol.append(10)
+        sol[i] += 3
+    sol.append(3)
     return sol
 
 def draw_plot():
